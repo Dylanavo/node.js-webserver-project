@@ -94,14 +94,20 @@ function reqStudentDetails(request, response)
 		console.log("parsing done");
 		
 		var body = "Received upload:\n\n";
+		var line = "";
 		
 		for(var key in field)
 		{
 			if(field.hasOwnProperty(key))
 			{
 				body += key + ":" + field[key] + ", ";
+				line += field[key] + ", ";
 			}
 		}
+		body = body.slice(0, -2);
+		line = line.slice(0, -2);
+		
+		console.log("User input: " + line);
 		
 		response.writeHead(200, {"content-type": "text/plain"});
 		response.write(body);
