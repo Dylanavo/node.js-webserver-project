@@ -96,7 +96,6 @@ function reqStudentDetails(request, response)
 		var body = "<h3>Received upload:</h3>\n<p>";
 		var line = "";
 		
-		
 		for(var key in field)
 		{
 			if(field.hasOwnProperty(key))

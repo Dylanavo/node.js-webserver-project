@@ -11,16 +11,16 @@
 		<div class="wrap">
 			<header>
 				<h1>Web App</h1>
-				<a href="index.html" title="Home">Home</a>
+				<input type="button" value="Home" onclick=loadOptions()>
 			</header>    
 			<article>
 				<div id="content">
 					<h2>Select an Option</h2>
-					<form>
+					<form onsubmit="return loadForm()">
 					  <input type="radio" name="option" id="studentForm" value="studentForm" checked>Add Student Details<br>
 					  <input type="radio" name="option" id="searchForm" value="searchForm">Search Student Degree<br>
 					  <input type="radio" name="option" id="uploadForm" value="uploadForm">Upload Image<br><br>
-					  <input type="button" value="Submit" onclick="loadDoc()"/>
+					  <input type="submit" value="Submit">
 					</form> 
 				</div>
 			</article>

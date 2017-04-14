@@ -15,6 +15,7 @@ handle["/index"] = requestHandlers.reqFile;
 handle["/index.html"] = requestHandlers.reqFile;
 handle["/style.css"] = requestHandlers.reqFile;
 handle["/client.js"] = requestHandlers.reqFile;
+handle["/optionForm.html"] = requestHandlers.reqFile;
 handle["/studentForm.html"] = requestHandlers.reqFile;
 handle["/searchForm.html"] = requestHandlers.reqFile;
 handle["/uploadForm.html"] = requestHandlers.reqFile;

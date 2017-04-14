@@ -1,4 +1,20 @@
-function loadDoc() 
+function loadOptions()
+{
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() 
+	{
+		if (this.readyState == 4 && this.status == 200) 
+		{
+			document.getElementById("content").innerHTML = xhttp.responseText;
+		}
+	};
+	
+	xhttp.open("POST", "optionForm.html", true);
+	xhttp.send();
+}
+
+function loadForm() 
 {
 	var url = "";
 	
@@ -25,8 +41,10 @@ function loadDoc()
 		}
 	};
 	
-	xhttp.open("GET", url, true);
+	xhttp.open("POST", url, true);
 	xhttp.send();
+	
+	return false;
 }
 
 function sendStudentDetails()
@@ -47,5 +65,25 @@ function sendStudentDetails()
 	xhttp.open("POST", "postStudentDetails", true);
 	xhttp.send(formData);
 
+	return false;
+}
+
+function sendUploadInfo()
+{
+	/*
+	var xhttp = new XMLHttpRequest();
+
+	xhttp.onreadystatechange = function() 
+	{
+		if (this.readyState == 4 && this.status == 200) 
+		{
+			document.getElementById("content").innerHTML = xhttp.responseText;
+		}
+	};
+	
+	xhttp.open("POST", "optionForm.html", true);
+	xhttp.send();
+	*/
+	
 	return false;
 }
