@@ -66,7 +66,7 @@ function req404(request, response)
 	{
 		if (err)
 		{
-			//should only error if index.html is missing from html folder
+			//should only error if 404.html is missing from html folder
 			console.log(err);
 			
 			response.writeHead(500, {"Content-Type":"text/html"});
@@ -93,8 +93,9 @@ function reqStudentDetails(request, response)
 	{
 		console.log("parsing done");
 		
-		var body = "Received upload:\n\n";
+		var body = "<h3>Received upload:</h3>\n<p>";
 		var line = "";
+		
 		
 		for(var key in field)
 		{
@@ -104,32 +105,30 @@ function reqStudentDetails(request, response)
 				line += field[key] + ", ";
 			}
 		}
+		
+		//get rid of the last ', '
 		body = body.slice(0, -2);
+		body += "</p>"
 		line = line.slice(0, -2);
-		
-		console.log("User input: " + line);
-		
-		response.writeHead(200, {"content-type": "text/plain"});
-		response.write(body);
-		response.end();	
-		
-		/*
-		//possibly error on windows systems
-		//tried to rename to an already existing file
-		fs.rename(file.upload.path,"./test.png",function(err)
+		line += "\n";
+
+		fs.appendFile("./student_info/student_info.csv", line, function(err)
 		{
-			if (err) 
+			if(err)
 			{
-				fs.unlink("./test.png");
-				fs.rename(file.upload.path,"./test.png");
+				console.log("Data was not appended")
+				response.writeHead(500, {"content-type": "text/html"});
+				response.write("<h3>Error:</h3>\n<p>Data did not append to file!</p>");
+				response.end();	
+			}
+			else
+			{
+				console.log("Data was appeneded - User input: " + line);
+				response.writeHead(200, {"content-type": "text/html"});
+				response.write(body);
+				response.end();	
 			}
 		});
-		
-		response.writeHead(200, {"Content-Type": "text/html"});
-		response.write("Received image:<br/>");
-		response.write("<img src='/show' />");
-		response.end();
-		*/
 	});
 }
 
