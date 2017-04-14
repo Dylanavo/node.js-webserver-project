@@ -16,11 +16,7 @@ function route(pathname, handle, request, response)
 	else
 	{
 		console.log("No request handler found for: " + pathname);
-		
-		//send 404 back to client
-		response.writeHead(404, {"Content-Type": "text/plain"});
-		response.write("Resource not found!");
-		response.end();
+		handle["404"](request, response);
 	}
 }
 

@@ -10,8 +10,12 @@ var handle = {};
 
 //using associate array (also know as key/value map etc)
 //each element (key) points to an appropriate handler (value)
-handle["/"] = requestHandlers.reqStart;
-handle["/start"] = requestHandlers.reqStart;
+handle["/"] = requestHandlers.reqIndex;
+handle["/index"] = requestHandlers.reqIndex;
+handle["/index.html"] = requestHandlers.reqIndex;
+handle["/style.css"] = requestHandlers.reqCSS;
+handle["/client.js"] = requestHandlers.reqJS;
+handle["404"] = requestHandlers.req404;
 handle["/upload"] = requestHandlers.reqUpload;
 handle["/show"] = requestHandlers.reqShow;
 

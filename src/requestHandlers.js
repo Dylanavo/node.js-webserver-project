@@ -4,26 +4,105 @@
 var fs = require("fs");
 var formidable = require("formidable");
 
-function reqStart(request, response) 
+//not a very flexible approach, might consider
+//something more like reqHTML and pass in 
+//the pathname then let server return it if it exists
+function reqIndex(request, response) 
 {
 	console.log("Request handler 'start' was called.");
 	
-	var body = 
-	'<html>\n' +
-	'	<head>\n' +
-	'		<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />\n' +
-	'	</head>\n' +
-	'	<body>\n' +
-	'		<form action="/upload" enctype="multipart/form-data" method="post">\n' +
-	'			<input type="file" name="upload" multiple="multiple" />\n' +
-	'			<input type="submit" value="Upload file" />\n' +
-	'		</form>\n' +
-	'	</body>\n' +
-	'</html>\n';
+	fs.readFile("./html/index.html", "utf8", function(err, data)
+	{
+		if (err)
+		{
+			//should only error if index.html is missing from html folder
+			console.log(err);
+			
+			response.writeHead(500, {"Content-Type":"text/html"});
+			response.write("<h2>500</h2>\n<p>Could not find index.html, contact server admin!<p>");
+			response.end();
+		}
+		else
+		{
+			response.writeHead(200, {"Content-Type":"text/html"});
+			response.write(data);
+			response.end();
+		}
+	});
+}
+
+//same issue as above, make more generic
+function reqCSS(request, response)
+{
+	console.log("Request handler 'css' was called.");
 	
-	response.writeHead(200, {"Content-Type": "text/html"});
-	response.write(body);
-	response.end();
+	fs.readFile("./css/style.css", "utf8", function(err, data)
+	{
+		if (err)
+		{
+			//should only error if index.html is missing from html folder
+			console.log(err);
+			
+			response.writeHead(500, {"Content-Type":"text/html"});
+			response.write("<h2>500</h2>\n<p>Could not find style.css, contact server admin!<p>");
+			response.end();
+		}
+		else
+		{
+			response.writeHead(200, {"Content-Type":"text/css"});
+			response.write(data);
+			response.end();
+		}
+	});
+}
+
+//same issue as above, make more generic
+function reqJS(request, response)
+{
+	console.log("Request handler 'js' was called.");
+	
+	fs.readFile("./js/client.js", "utf8", function(err, data)
+	{
+		if (err)
+		{
+			//should only error if index.html is missing from html folder
+			console.log(err);
+			
+			response.writeHead(500, {"Content-Type":"text/html"});
+			response.write("<h2>500</h2>\n<p>Could not find client.js, contact server admin!<p>");
+			response.end();
+		}
+		else
+		{
+			response.writeHead(200, {"Content-Type":"text/javascript"});
+			response.write(data);
+			response.end();
+		}
+	});
+}
+
+function req404(request, response)
+{
+	console.log("Request handler '404' was called.");
+	
+	fs.readFile("./html/404.html", "utf8", function(err, data)
+	{
+		if (err)
+		{
+			//should only error if index.html is missing from html folder
+			console.log(err);
+			
+			response.writeHead(500, {"Content-Type":"text/html"});
+			response.write("<h2>500</h2>\n<p>Could not find 404.html, contact server admin!<p>");
+			response.end();
+		}
+		else
+		{
+			response.writeHead(200, {"Content-Type":"text/html"});
+			response.write(data);
+			response.end();
+		}
+	});
 }
 
 function reqUpload(request, response) 
@@ -62,6 +141,9 @@ function reqShow(request, response)
 	fs.createReadStream("./test.png").pipe(response);
 }
 
-exports.reqStart = reqStart;
+exports.reqIndex = reqIndex;
+exports.reqCSS = reqCSS;
+exports.reqJS = reqJS;
+exports.req404 = req404;
 exports.reqUpload = reqUpload;
 exports.reqShow = reqShow;
