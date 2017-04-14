@@ -10,14 +10,18 @@ var handle = {};
 
 //using associate array (also know as key/value map etc)
 //each element (key) points to an appropriate handler (value)
-handle["/"] = requestHandlers.reqIndex;
-handle["/index"] = requestHandlers.reqIndex;
-handle["/index.html"] = requestHandlers.reqIndex;
-handle["/style.css"] = requestHandlers.reqCSS;
-handle["/client.js"] = requestHandlers.reqJS;
-handle["404"] = requestHandlers.req404;
+handle["/"] = requestHandlers.reqFile;
+handle["/index"] = requestHandlers.reqFile;
+handle["/index.html"] = requestHandlers.reqFile;
+handle["/style.css"] = requestHandlers.reqFile;
+handle["/client.js"] = requestHandlers.reqFile;
+handle["/studentForm.html"] = requestHandlers.reqFile;
+handle["/searchForm.html"] = requestHandlers.reqFile;
+handle["/uploadForm.html"] = requestHandlers.reqFile;
+handle["/postStudentDetails"] = requestHandlers.reqStudentDetails;
 handle["/upload"] = requestHandlers.reqUpload;
 handle["/show"] = requestHandlers.reqShow;
+handle["404"] = requestHandlers.req404;
 
 //call startServer() associated with
 //server object and pass the router 

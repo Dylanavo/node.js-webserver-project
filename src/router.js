@@ -10,7 +10,7 @@ function route(pathname, handle, request, response)
 	if (typeof handle[pathname] == "function")
 	{
 		//run that function
-		handle[pathname](request, response);
+		handle[pathname](request, response, pathname);
 	}
 	//if path is NOT a name of a handler function
 	else
