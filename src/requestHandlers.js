@@ -4,7 +4,6 @@
 var fs = require("fs");
 var path = require("path");
 var formidable = require("formidable");
-var sys = require("sys");
 
 //not too sure about this method, may of over-thunk
 //when trying to make it generic enough to load any
@@ -94,9 +93,19 @@ function reqStudentDetails(request, response)
 	{
 		console.log("parsing done");
 		
+		var body = "Received upload:\n\n";
+		
+		for(var key in field)
+		{
+			if(field.hasOwnProperty(key))
+			{
+				body += key + ":" + field[key] + ", ";
+			}
+		}
+		
 		response.writeHead(200, {"content-type": "text/plain"});
-		response.write("Received upload:\n\n");
-		response.end(sys.inspect({field: field, file: file}));	
+		response.write(body);
+		response.end();	
 		
 		/*
 		//possibly error on windows systems
