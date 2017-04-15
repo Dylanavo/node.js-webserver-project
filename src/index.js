@@ -20,6 +20,7 @@ handle["/optionForm.html"] = requestHandlers.reqFile;
 handle["/studentForm.html"] = requestHandlers.reqFile;
 handle["/searchForm.html"] = requestHandlers.reqFile;
 handle["/uploadForm.html"] = requestHandlers.reqFile;
+handle["/checks.png"] = requestHandlers.reqChecks;
 handle["/postStudentDetails"] = requestHandlers.reqStudentDetails;
 handle["/postSearchForm"] = requestHandlers.reqSearchDetails;
 handle["/upload"] = requestHandlers.reqUpload;

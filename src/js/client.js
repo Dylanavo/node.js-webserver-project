@@ -3,15 +3,15 @@
 
 function loadForm() 
 {
-	if(document.getElementById("studentForm").checked) 
+	if(document.getElementById("op1").checked) 
 	{
 		sendForm("studentForm.html", false);
 	}
-	else if(document.getElementById("searchForm").checked) 
+	else if(document.getElementById("op2").checked) 
 	{
 		sendForm("searchForm.html", false);
 	}
-	else if(document.getElementById("uploadForm").checked)
+	else if(document.getElementById("op3").checked)
 	{
 		sendForm("uploadForm.html", false);
 	}

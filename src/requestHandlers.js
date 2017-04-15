@@ -236,6 +236,13 @@ function reqUpload(request, response)
 	});
 }
 
+function reqChecks(request, response)
+{
+	console.log("Request handler 'show' was called.");
+	response.writeHead(200, {"Content-Type": "image/png"});
+	fs.createReadStream("./checks.png").pipe(response);
+}
+
 function reqShow(request, response)
 {
 	console.log("Request handler 'show' was called.");
@@ -250,3 +257,4 @@ exports.reqStudentDetails = reqStudentDetails;
 exports.reqSearchDetails = reqSearchDetails;
 exports.reqUpload = reqUpload;
 exports.reqShow = reqShow;
+exports.reqChecks = reqChecks;
