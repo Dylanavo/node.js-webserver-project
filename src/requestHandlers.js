@@ -3,6 +3,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var readline = require("readline");
 var formidable = require("formidable");
 
 //not too sure about this method, may of over-thunk
@@ -166,32 +167,43 @@ function reqSearchDetails(request, response)
 	{
 		console.log("parsing done");
 		
+		//should probably check there is something in field["Degree"]
 		var searchTerm = field["Degree"];
-		var body = "<h3>Search Results for " + searchTerm + ":</h3>\n<p>";
+		searchTerm = searchTerm.toLowerCase();
+		var body = "<h3>Search Results for " + searchTerm;
+		var results = [];
 
-		response.writeHead(200, {"Content-Type": "text/html"});
-		response.write(body);
-		response.end();
-		
-		/*
-		fs.appendFile("./student_info/student_info.csv", line, function(err)
+		var lineReader = readline.createInterface(
 		{
-			if(err)
+			input: fs.createReadStream("./student_info/student_info.csv"),
+			terminal: false
+		});
+		
+		//what to do for each line of the file
+		lineReader.on("line", function(line)
+		{
+			//this will grab just the degree part of the csv
+			var degree = line.split(",")[5];
+			if(degree.toLowerCase().indexOf(searchTerm) != -1)
 			{
-				console.log("Data was not appended")
-				response.writeHead(500, {"content-type": "text/html"});
-				response.write("<h3>Error:</h3>\n<p>Data did not append to file!</p>");
-				response.end();	
-			}
-			else
-			{
-				console.log("Data was appeneded - User input: " + line);
-				response.writeHead(200, {"content-type": "text/html"});
-				response.write(body);
-				response.end();	
+				results.push(line);
 			}
 		});
-		*/
+		
+		//what to do after the file is read
+		lineReader.on("close", function()
+		{
+			body += ": " + results.length + " results</h3>\n"
+		
+			for(i=0; i<results.length; i++)
+			{
+				body += "<p>" + results[i] + "</p>\n"
+			}
+		
+			response.writeHead(200, {"Content-Type": "text/html"});
+			response.write(body);
+			response.end();
+		});
 	});
 }
 

@@ -41,6 +41,8 @@ function sendForm(url, hasData)
 	
 	if(hasData)
 	{
+		//should probably check formData
+		//isn't undefined
 		xhttp.send(formData);
 	}
 	else
