@@ -1,3 +1,6 @@
+//client.js
+"using strict";
+
 function loadForm() 
 {
 	if(document.getElementById("studentForm").checked) 
@@ -24,6 +27,10 @@ function sendForm(url, hasData)
 	if(hasData)
 	{
 		formElement = document.querySelector("form");
+		if(url == "upload")
+		{
+			formElement.enctype = "multipart/form-data";
+		}
 		formData = new FormData(formElement);
 	}
 	
@@ -42,7 +49,7 @@ function sendForm(url, hasData)
 	if(hasData)
 	{
 		//should probably check formData
-		//isn't undefined
+		//isn't something unexpected (like undefined)
 		xhttp.send(formData);
 	}
 	else
@@ -50,25 +57,5 @@ function sendForm(url, hasData)
 		xhttp.send();
 	}
 
-	return false;
-}
-
-function sendUploadInfo()
-{
-	/*
-	var xhttp = new XMLHttpRequest();
-
-	xhttp.onreadystatechange = function() 
-	{
-		if (this.readyState == 4 && this.status == 200) 
-		{
-			document.getElementById("content").innerHTML = xhttp.responseText;
-		}
-	};
-	
-	xhttp.open("POST", "optionForm.html", true);
-	xhttp.send();
-	*/
-	
 	return false;
 }

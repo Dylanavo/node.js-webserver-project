@@ -230,8 +230,8 @@ function reqUpload(request, response)
 		});
 		
 		response.writeHead(200, {"Content-Type": "text/html"});
-		response.write("Received image:<br/>");
-		response.write("<img src='/show' />");
+		response.write("<h3>Received image:<h3><br><br>");
+		response.write("<img src='/show?nocache="+ Date.now() + "' />");
 		response.end();
 	});
 }
