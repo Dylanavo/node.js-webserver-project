@@ -13,6 +13,7 @@ var handle = {};
 handle["/"] = requestHandlers.reqFile;
 handle["/index"] = requestHandlers.reqFile;
 handle["/index.html"] = requestHandlers.reqFile;
+handle["/favicon.ico"] = requestHandlers.reqFavi;
 handle["/style.css"] = requestHandlers.reqFile;
 handle["/client.js"] = requestHandlers.reqFile;
 handle["/optionForm.html"] = requestHandlers.reqFile;

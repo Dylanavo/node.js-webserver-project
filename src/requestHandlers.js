@@ -58,6 +58,30 @@ function reqFile(request, response, pathname)
 	});
 }
 
+function reqFavi(request, response)
+{
+	console.log("Request handler 'favicon' was called.");
+	
+	fs.readFile("./favicon.ico", function(err, data)
+	{
+		if (err)
+		{
+			//should only error if 404.html is missing from html folder
+			console.log(err);
+			
+			response.writeHead(500, {"Content-Type":"text/html"});
+			response.write("<h2>500</h2>\n<p>Could not find favicon.ico, contact server admin!<p>");
+			response.end();
+		}
+		else
+		{
+			response.writeHead(200, {"Content-Type":"image/x-icon"});
+			response.write(data);
+			response.end();
+		}
+	});
+}
+
 function req404(request, response)
 {
 	console.log("Request handler '404' was called.");
@@ -168,6 +192,7 @@ function reqShow(request, response)
 }
 
 exports.reqFile = reqFile;
+exports.reqFavi = reqFavi;
 exports.req404 = req404;
 exports.reqStudentDetails = reqStudentDetails;
 exports.reqUpload = reqUpload;
