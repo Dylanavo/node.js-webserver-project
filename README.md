@@ -11,10 +11,10 @@ Project for 3rd year university unit, create a simple web server to allow a clie
 # Goals include 
 - Implement simple web app/server using node.js
 - Module design to promote greater reusability
-- All implemented using core modules and one non-core module (formidable)
+- All implemented using core modules and one non-core module ([formidable](https://github.com/felixge/node-formidable "formidable"))
 - AJAX used for client code so that page reloading isn't necessary
 
 # Requirements
 - Node.js runtime environment
-- formidable module (non-core node.js module)
+- [formidable module](https://github.com/felixge/node-formidable "formidable") (non-core node.js module)
 - Web browswer (so the client can access the server)
