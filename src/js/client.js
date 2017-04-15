@@ -1,34 +1,30 @@
-function loadOptions()
-{
-	var xhttp = new XMLHttpRequest();
-
-	xhttp.onreadystatechange = function() 
-	{
-		if (this.readyState == 4 && this.status == 200) 
-		{
-			document.getElementById("content").innerHTML = xhttp.responseText;
-		}
-	};
-	
-	xhttp.open("POST", "optionForm.html", true);
-	xhttp.send();
-}
-
 function loadForm() 
 {
-	var url = "";
-	
 	if(document.getElementById("studentForm").checked) 
 	{
-		url = "studentForm.html"
+		sendForm("studentForm.html", false);
 	}
 	else if(document.getElementById("searchForm").checked) 
 	{
-		url = "searchForm.html";
+		sendForm("searchForm.html", false);
 	}
 	else if(document.getElementById("uploadForm").checked)
 	{
-		url = "uploadForm.html";
+		sendForm("uploadForm.html", false);
+	}
+	
+	return false;
+}
+
+function sendForm(url, hasData)
+{
+	var formElement; 
+	var formData; 
+	
+	if(hasData)
+	{
+		formElement = document.querySelector("form");
+		formData = new FormData(formElement);
 	}
 	
 	var xhttp = new XMLHttpRequest();
@@ -42,28 +38,15 @@ function loadForm()
 	};
 	
 	xhttp.open("POST", url, true);
-	xhttp.send();
 	
-	return false;
-}
-
-function sendStudentDetails()
-{
-	var formElement = document.querySelector("form");
-	var formData = new FormData(formElement);
-	
-	var xhttp = new XMLHttpRequest();
-
-	xhttp.onreadystatechange = function() 
+	if(hasData)
 	{
-		if (this.readyState == 4 && this.status == 200) 
-		{
-			document.getElementById("content").innerHTML = xhttp.responseText;
-		}
-	};
-	
-	xhttp.open("POST", "postStudentDetails", true);
-	xhttp.send(formData);
+		xhttp.send(formData);
+	}
+	else
+	{
+		xhttp.send();
+	}
 
 	return false;
 }

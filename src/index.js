@@ -21,6 +21,7 @@ handle["/studentForm.html"] = requestHandlers.reqFile;
 handle["/searchForm.html"] = requestHandlers.reqFile;
 handle["/uploadForm.html"] = requestHandlers.reqFile;
 handle["/postStudentDetails"] = requestHandlers.reqStudentDetails;
+handle["/postSearchForm"] = requestHandlers.reqSearchDetails;
 handle["/upload"] = requestHandlers.reqUpload;
 handle["/show"] = requestHandlers.reqShow;
 handle["404"] = requestHandlers.req404;

@@ -109,8 +109,8 @@ function req404(request, response)
 function reqStudentDetails(request, response)
 {
 	console.log("Request handler 'student details' was called.");
-	console.log("...parsing form...");
 	
+	console.log("...parsing form...");
 	var form = new formidable.IncomingForm();
 	form.uploadDir = "./tmp";
 	form.parse(request, function(error, field, file)
@@ -155,6 +155,46 @@ function reqStudentDetails(request, response)
 	});
 }
 
+function reqSearchDetails(request, response)
+{
+	console.log("Request handler 'search' was called.");
+	
+	console.log("...parsing form...");
+	var form = new formidable.IncomingForm();
+	form.uploadDir = "./tmp";
+	form.parse(request, function(error, field, file)
+	{
+		console.log("parsing done");
+		
+		var searchTerm = field["Degree"];
+		var body = "<h3>Search Results for " + searchTerm + ":</h3>\n<p>";
+
+		response.writeHead(200, {"Content-Type": "text/html"});
+		response.write(body);
+		response.end();
+		
+		/*
+		fs.appendFile("./student_info/student_info.csv", line, function(err)
+		{
+			if(err)
+			{
+				console.log("Data was not appended")
+				response.writeHead(500, {"content-type": "text/html"});
+				response.write("<h3>Error:</h3>\n<p>Data did not append to file!</p>");
+				response.end();	
+			}
+			else
+			{
+				console.log("Data was appeneded - User input: " + line);
+				response.writeHead(200, {"content-type": "text/html"});
+				response.write(body);
+				response.end();	
+			}
+		});
+		*/
+	});
+}
+
 function reqUpload(request, response) 
 {
 	console.log("Request handler 'upload' was called.");
@@ -195,5 +235,6 @@ exports.reqFile = reqFile;
 exports.reqFavi = reqFavi;
 exports.req404 = req404;
 exports.reqStudentDetails = reqStudentDetails;
+exports.reqSearchDetails = reqSearchDetails;
 exports.reqUpload = reqUpload;
 exports.reqShow = reqShow;
