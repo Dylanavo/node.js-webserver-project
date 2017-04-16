@@ -2,6 +2,7 @@
 "using strict";
 
 var fs = require("fs");
+var url = require("url");
 var path = require("path");
 var readline = require("readline");
 var formidable = require("formidable");
@@ -148,7 +149,7 @@ function reqStudentDetails(request, response)
 				
 				//append current key and value to line
 				//to be written to console and file
-				line += field[key] + ",";
+				line += field[key] + ", ";
 			}
 		}
 		
@@ -157,7 +158,7 @@ function reqStudentDetails(request, response)
 		body += "</p>"
 		
 		//get rid of the last ','
-		line = line.slice(0, -1);
+		line = line.slice(0, -2);
 		line += "\n";
 
 		//open file in append mode (or create if doesn't exist) and
@@ -282,16 +283,25 @@ function reqUpload(request, response)
 	{
 		console.log("parsing done");
 		
+		//get the file name and file type
+		//we should probably be making sure the
+		//file is a known image type too?
+		//
+		//at the moment this can accept basically
+		//any file type
+		var fileName = file.upload.name;
+		var fileType = file.upload.type;
+		
 		//at this point data will be stored in var file,
-		//write this file to disk at ./images/test.png
-		fs.rename(file.upload.path,"./images/test.png",function(err)
+		//write this file to disk at ./images/fileName
+		fs.rename(file.upload.path,"./images/"+fileName,function(err)
 		{
 			if (err) 
 			{
-				//if there are any issues try unlink the image
-				//and write it again
-				fs.unlink("./images/test.png");
-				fs.rename(file.upload.path,"./images/test.png");
+				//if there are any issues (file by that name already exists)
+				//try unlink the image and write it again
+				fs.unlink("./images/"+fileName);
+				fs.rename(file.upload.path,"./images/"+fileName);
 			}
 		});
 		
@@ -300,29 +310,23 @@ function reqUpload(request, response)
 		//the server will then run the handler for /show
 		response.writeHead(200, {"Content-Type": "text/html"});
 		response.write("<h3>Received image:<h3><br><br>");
-		response.write("<img src='/show?nocache="+ Date.now() + "' />");
+		response.write("<img src='/show?fileName="+fileName+"&fileType="+fileType+"&nocache="+Date.now()+"' />");
 		response.end();
 	});
-}
-
-function reqChecks(request, response)
-{
-	console.log("Request handler 'show' was called.");
-	
-	//send checks.png to client, should probably
-	//use a more generic image responder for requests
-	//ending in .png .jpg .gif, etc
-	response.writeHead(200, {"Content-Type": "image/png"});
-	fs.createReadStream("./images/checks.png").pipe(response);
 }
 
 function reqShow(request, response)
 {
 	console.log("Request handler 'show' was called.");
 	
-	//sends test.png to client
-	response.writeHead(200, {"Content-Type": "image/png"});
-	fs.createReadStream("./images/test.png").pipe(response);
+	//get the query and extract file name and type
+	var query = url.parse(request.url, true).query;
+	var fileName = query.fileName;
+	var fileType = query.fileType;
+	
+	//send the file to client
+	response.writeHead(200, {"Content-Type": fileType});
+	fs.createReadStream("./images/"+fileName).pipe(response);
 }
 
 //export all the handler functions
@@ -333,4 +337,3 @@ exports.reqStudentDetails = reqStudentDetails;
 exports.reqSearchDetails = reqSearchDetails;
 exports.reqUpload = reqUpload;
 exports.reqShow = reqShow;
-exports.reqChecks = reqChecks;

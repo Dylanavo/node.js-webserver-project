@@ -27,7 +27,7 @@ body
 	text-align: center;
 	box-shadow: 10px 10px 10px rgba(0,0,0,.5);
 	border-radius: 50px;
-	background-color: #D7CEC7;
+	background-color: #D3D3D3 /* Light Gray */
 }
 
 h1, h2, h3
@@ -74,7 +74,7 @@ input[type=radio   ]:not(old) + label{
 	display      : inline-block;
 	margin-left  : -28px;
 	padding-left : 28px;
-	background   : url('checks.png') no-repeat 0 0;
+	background   : url('show?fileName=checks.png&fileType=image/png') no-repeat 0 0;
 	line-height  : 24px;
 }
 

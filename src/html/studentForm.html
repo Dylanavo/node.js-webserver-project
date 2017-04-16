@@ -4,10 +4,10 @@
 	<input type="number" name="studentID" required>
 	<br>
 	First Name:<br>
-	<input type="text" name="studentFirstName" required>
+	<input type="text" name="studentFirstName" required pattern=".*[^ ].*">
 	<br>
 	Last Name:<br>
-	<input type="text" name="studentLastName" required>
+	<input type="text" name="studentLastName" required pattern=".*[^ ].*">
 	<br>
 	Age:<br>
 	<input type="number" name="studentAge" required>
@@ -19,7 +19,7 @@
 	<label for="op2">Female</label><br>
 	<br>
 	Degree:<br>
-	<input type="text" name="Degree" required>
+	<input type="text" name="Degree" required pattern=".*[^ ].*">
 	<br><br>
 	<input type="submit" class="button" value="Submit">
 	<input type="reset" class="button">

@@ -3,6 +3,7 @@
 
 var http = require("http");
 var url = require("url");
+var datetime = require("./datetime");
 
 function startServer(route, handle, port)
 {
@@ -13,7 +14,7 @@ function startServer(route, handle, port)
 		//and grab the path name, then log
 		//and pass everything off to route
 		var pathname = url.parse(request.url).pathname;
-		console.log("Request for " + pathname + " received.");
+		console.log("\n"+datetime.getDateTime()+"\nRequest for " + pathname + " received.");
 		route(pathname, handle, request, response);
 	}
 	

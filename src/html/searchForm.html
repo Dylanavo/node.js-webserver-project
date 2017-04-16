@@ -1,7 +1,7 @@
 <h2>Enter Search Term</h2>
 <form onsubmit="return sendForm('postSearchForm', true)">
 	Degree:<br>
-	<input type="search" name="Degree" required>
+	<input type="search" name="Degree" required pattern=".*[^ ].*">
 	<br><br>
 	<input type="submit" class="button" value="Submit">
 	<input type="reset" class="button">
