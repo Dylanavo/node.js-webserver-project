@@ -2,6 +2,12 @@
 "use strict";
 
 // create route function with pathname as parameter
+//
+// in order to make requestHandlers more generic should
+// we be making more complicated decisions here?
+// (e.g. if requested resource ends in .png/.jpg/.gif, route to
+// image request handler, or if it ends in .html/.css/.js
+// route to file request handler
 function route(pathname, handle, request, response) 
 {
 	console.log("About to route a request for: " + pathname);

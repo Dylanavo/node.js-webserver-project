@@ -5,6 +5,7 @@ img
     max-width: 100%;
 }
 
+/* Textured background from http://lea.verou.me/css3patterns/#carbon-fibre */
 body
 {
 	background:
@@ -40,6 +41,7 @@ article
 	padding: 40px;
 }
 
+/* button styling from https://www.w3schools.com/css/css3_buttons.asp */
 .button
 {
 	background-color: #C09F80;
@@ -51,6 +53,7 @@ article
     display: inline-block;
     font-size: 16px;
 	border-radius: 10px;
+	outline:none;
 }
 
 .button:hover
@@ -59,8 +62,7 @@ article
 	background-color: #4CAF50;
 }
 
-
-input[type=checkbox]:not(old),
+/* radio button styling from http://code.stephenmorley.org/html-and-css/styling-checkboxes-and-radio-buttons/ */
 input[type=radio   ]:not(old){
 	width   : 28px;
 	margin  : 0;
@@ -68,17 +70,12 @@ input[type=radio   ]:not(old){
 	opacity : 0;
 }
 
-input[type=checkbox]:not(old) + label,
 input[type=radio   ]:not(old) + label{
 	display      : inline-block;
 	margin-left  : -28px;
 	padding-left : 28px;
 	background   : url('checks.png') no-repeat 0 0;
 	line-height  : 24px;
-}
-
-input[type=checkbox]:not(old):checked + label{
-	background-position : 0 -24px;
 }
 
 input[type=radio]:not(old):checked + label{

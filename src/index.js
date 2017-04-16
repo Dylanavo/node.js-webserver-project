@@ -1,6 +1,16 @@
 //index.js
 "use strict";
 
+//settings
+var port = 41152;
+
+//would probably have other settings to
+//allow defining which file to write log
+//statements too etc. For now just writing
+//to console
+
+//get all exported functionality
+//from our scripts
 var server = require("./server");
 var router = require("./router");
 var requestHandlers = require("./requestHandlers");
@@ -10,6 +20,9 @@ var handle = {};
 
 //using associate array (also know as key/value map etc)
 //each element (key) points to an appropriate handler (value)
+//
+//this is basically defining what resource indentifiers
+//the client can use to actually get the server to do something
 handle["/"] = requestHandlers.reqFile;
 handle["/index"] = requestHandlers.reqFile;
 handle["/index.html"] = requestHandlers.reqFile;
@@ -33,4 +46,4 @@ handle["404"] = requestHandlers.req404;
 //object in as param
 //Also pass in our assoc array that contains
 //the handlers needed by route to handle requests
-server.startServer(router.route, handle);
+server.startServer(router.route, handle, port);
