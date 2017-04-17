@@ -310,6 +310,16 @@ function reqUpload(request, response)
 		//the server will then run the handler for /show
 		response.writeHead(200, {"Content-Type": "text/html"});
 		response.write("<h3>Received image:<h3><br><br>");
+		
+		//passing the filename and filetype as data in the url
+		//is a poor way of getting the image to display
+		//better to just pass the filename as the url
+		//
+		//date.now is used to make the file "unique" each time
+		//it is requested, this was necessary as using AJAX
+		//sometimes makes a cached image display when the name
+		//is the same as the requested image, requiring a refresh
+		//to work.
 		response.write("<img src='/show?fileName="+fileName+"&fileType="+fileType+"&nocache="+Date.now()+"' />");
 		response.end();
 	});
@@ -323,10 +333,18 @@ function reqShow(request, response)
 	var query = url.parse(request.url, true).query;
 	var fileName = query.fileName;
 	var fileType = query.fileType;
-	
+
 	//send the file to client
 	response.writeHead(200, {"Content-Type": fileType});
-	fs.createReadStream("./images/"+fileName).pipe(response);
+	var stream = fs.createReadStream("./images/"+fileName)
+
+	//handler any errors when piping (like file doesn't exist)	
+	stream.on("error", function(error)
+	{
+		req404(request, response); 
+	});
+	
+	stream.pipe(response);
 }
 
 //export all the handler functions
