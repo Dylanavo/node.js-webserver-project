@@ -1,7 +1,7 @@
 # Simple Node.js Web Server
 
 # More about the server
-Project for 3rd year university unit, create a simple web server to allow a client to complete 3 distinct tasks
+Project aimed at creating a simple web server to allow a client to complete 3 distinct tasks
 
 # Tasks
 - Allow user to enter student details (student id, first name, last name, age, gender, degree) which is then stored in a csv file
